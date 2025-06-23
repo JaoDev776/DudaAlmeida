@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contagem Regressiva para Encontrar [Nome dela]</title>
+    <style>
+        :root {
+            --azul-marinho: #1353a0;
+            --azul-escuro: #011C37;
+            --azul-destaque: #1A73E8;
+            --azul-claro: #E6F0FF;
+            --branco: #FFFFFF;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--azul-claro);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--azul-marinho), var(--azul-escuro));
+            padding: 20px;
+            color: white;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--branco);
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+        
+        .profile-pic:hover {
+            transform: scale(1.05);
+        }
+        
+        .countdown-container {
+            background-color: var(--branco);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-box {
+            background: linear-gradient(135deg, var(--azul-marinho), var(--azul-destaque));
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            min-width: 80px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: block;
+            opacity: 0.9;
+        }
+        
+        .music-container {
+            background-color: var(--branco);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 800px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .music-player {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .music-form {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .music-list {
+            text-align: left;
+            list-style-type: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .music-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        
+        .music-item:hover {
+            background-color: var(--azul-claro);
+        }
+        
+        button {
+            background-color: var(--azul-destaque);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        button:hover {
+            background-color: var(--azul-marinho);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        input[type="text"] {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 70%;
+            margin-right: 10px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            border-color: var(--azul-destaque);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
+        }
+        
+        h1, h2 {
+            color: var(--azul-marinho);
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--azul-marinho), var(--azul-escuro));
+            color: white;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .date-info {
+            color: var(--azul-destaque);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="./Captura de tela 2025-06-23 171530.png" alt="Foto dela" class="profile-pic">
+        <h1>Encontro com a Sereia</h1>
+    </header>
+    
+    <div class="countdown-container">
+        <h2>Faltam...</h2>
+        <div class="countdown">
+            <div class="countdown-box">
+                <span id="days">00</span>
+                <span class="countdown-label">dias</span>
+            </div>
+            <div class="countdown-box">
+                <span id="hours">00</span>
+                <span class="countdown-label">horas</span>
+            </div>
+            <div class="countdown-box">
+                <span id="minutes">00</span>
+                <span class="countdown-label">minutos</span>
+            </div>
+            <div class="countdown-box">
+                <span id="seconds">00</span>
+                <span class="countdown-label">segundos</span>
+            </div>
+        </div>
+        <div class="date-info" id="dateInfo"></div>
+    </div>
+    
+    <footer>
+        ❤️ Acaba pelo amor de Deus!
+    </footer>
+    
+    <script>
+        // Configura a data do encontro (1 mês e 19 dias a partir de hoje às 19:00)
+        function getTargetDate() {
+            const today = new Date();
+            const targetDate = new Date(today);
+            
+            // Adiciona 1 mês e 19 dias
+            targetDate.setMonth(targetDate.getMonth() + 1);
+            targetDate.setDate(targetDate.getDate() + 19);
+            
+            // Define o horário para 19:00
+            targetDate.setHours(19, 0, 0, 0);
+            
+            return targetDate;
+        }
+
+        const targetDate = getTargetDate();
+        
+        // Mostra a data do encontro formatada
+        const options = { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit',
+            timeZone: 'America/Sao_Paulo'
+        };
+        
+        document.getElementById('dateInfo').textContent = `Nos veremos em breve...`;
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = targetDate - now;
+            
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                document.querySelector('.countdown-container h2').innerHTML = 'Hoje é o grande dia! 🎉';
+                document.getElementById('dateInfo').textContent = 'O momento tão esperado chegou!';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            // Mensagem especial quando faltam poucos dias
+            if (days === 1) {
+                document.querySelector('.countdown-container h2').innerHTML = 'Falta apenas 1 dia! ❤️';
+            } else if (days < 5) {
+                document.querySelector('.countdown-container h2').innerHTML = `Faltam apenas ${days} dias! 😊`;
+            }
+        }
+
+        // Atualiza a cada segundo
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Executa imediatamente
+
+        // Funções para a playlist de músicas
+        let musicList = JSON.parse(localStorage.getItem('musicList')) || [
+            { title: "Coldplay - Yellow", url: "https://www.youtube.com/embed/yKNxeF4KMsY" }
+        ];
+        
+        function renderMusicList() {
+            const listElement = document.getElementById('musicList');
+            listElement.innerHTML = '';
+            
+            musicList.forEach((music, index) => {
+                const li = document.createElement('li');
+                li.className = 'music-item';
+                li.innerHTML = `
+                    <span>${music.title}</span>
+                    <div>
+                        <button onclick="playMusic('${music.url}')">Ouvir</button>
+                        <button onclick="removeMusic(${index})">Remover</button>
+                    </div>
+                `;
+                listElement.appendChild(li);
+            });
+        }
+        
+        function playMusic(url) {
+            const player = document.querySelector('.music-player iframe');
+            player.src = url;
+        }
+        
+        function addMusic() {
+            const input = document.getElementById('musicInput');
+            const musicValue = input.value.trim();
+            
+            if (musicValue) {
+                // Verifica se é um link do YouTube
+                let musicObj;
+                if (musicValue.includes('youtube.com') || musicValue.includes('youtu.be')) {
+                    const videoId = extractYouTubeId(musicValue);
+                    if (videoId) {
+                        musicObj = {
+                            title: `YouTube: ${musicValue.substring(0, 30)}...`,
+                            url: `https://www.youtube.com/embed/${videoId}`
+                        };
+                    } else {
+                        musicObj = { title: musicValue, url: '' };
+                    }
+                } else {
+                    musicObj = { title: musicValue, url: '' };
+                }
+                
+                musicList.push(musicObj);
+                localStorage.setItem('musicList', JSON.stringify(musicList));
+                input.value = '';
+                renderMusicList();
+            }
+        }
+        
+        function extractYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+        
+        function removeMusic(index) {
+            musicList.splice(index, 1);
+            localStorage.setItem('musicList', JSON.stringify(musicList));
+            renderMusicList();
+        }
+
+        // Carrega a playlist ao iniciar
+        renderMusicList();
+    </script>
+</body>
+</html>
